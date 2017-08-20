@@ -44,7 +44,7 @@ function Person(name, street) {
 }
 //class Object creation
 var bobSmith = new Person("Bob", "Pittsburg");
-
+console.log(bobSmith);
 document.write(bobSmith.info() + "<br/>");
 //Checking object instance 
 document.write("bobsmith is a person object?"+(bobSmith instanceof Person) + "<br/>");
