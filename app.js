@@ -1,3 +1,5 @@
+(function(){
+    'use strict';
 // JavaScript source code
 
 /*
@@ -18,14 +20,12 @@ var customer = {
 };
 
 //acsessing object properties and functions
-document.write(customer.speak() + "<br/>");
-document.write(customer.name + " lives at " + customer.address.street + "<br/>");
+console.log(customer.speak());
+console.log(customer.name + " lives at " + customer.address.street);
+
 //adding new property to exsisting Customer Object
 customer.address.country = "US";
-document.write(customer.address.country + "<br/>");
-
-
-
+console.log(customer.address.country + "<br/>");
 
 /*
 Constructor Function
@@ -45,20 +45,26 @@ function Person(name, street) {
 //class Object creation
 var bobSmith = new Person("Bob", "Pittsburg");
 console.log(bobSmith);
-document.write(bobSmith.info() + "<br/>");
+console.log(bobSmith.info() + "<br/>");
 //Checking object instance 
-document.write("bobsmith is a person object?"+(bobSmith instanceof Person) + "<br/>");
+console.log("bobsmith is a person object?"+(bobSmith instanceof Person));
 //to change the value of object property once its created
 function changeName(person) {
     person.name = "Sue Smith";
 }
 changeName(bobSmith);
-document.write(bobSmith.info() + "<br/>");
+console.log(bobSmith.info());
 //comparing 2 objects
 var person1Obj = new Person("Ruchir","Moradabad");
 var person2Obj=new Person("Agnivesh","Muzzafarnagar");
-document.write("Person1Obj is equal to Person2Obj?" + (person1Obj === person2Obj)+"<br/>");
+console.log("Person1Obj is equal to Person2Obj ? " + (person1Obj === person2Obj));
 
+//To get number of arguments a function contains
+function getSum(no1, no2) {
+    return no1 + no2;
+}
+
+console.log("No. of args getSum contains is:" + getSum.length);
 
 /*
 Prototype
@@ -71,12 +77,7 @@ Also built-in javascript type also have prototype property
 prototype property is by the name = __proto__
 */
 
-//To get number of arguments a function contains
-function getSum(no1, no2) {
-    return no1 + no2;
-}
 
-document.write("No. od args getSum contains is:" + getSum.length + "<br/>");
 //class Mammal
 function Mammal(name) {
     this.name = name;
@@ -90,18 +91,18 @@ Mammal.prototype.sound = "Grrrr";
 Mammal.prototype.makeSound = function () {
     return this.name+" Says "+this.sound;
 }
-
+console.log(Mammal);
 var grover = new Mammal("Grover");
-document.write(grover.makeSound() + "<br/>");
+console.log(grover.makeSound() + "<br/>");
 //to list out all the properties of Grover object
 for (var prop in grover) {
-    document.write(prop + " : " + grover[prop] + "<br/>");
+    console.log(prop + " : " + grover[prop]);
 }
 
 //hasOwnProperty() =>used to check if its object own 
 //property or not
-document.write("name Property of grover : " + grover.hasOwnProperty("name") + "<br/>");//true
-document.write("sound Property of grover : " + grover.hasOwnProperty("sound") + "<br/>");//false
+console.log("name Property of grover : " + grover.hasOwnProperty("name"));//true
+console.log("sound Property of grover : " + grover.hasOwnProperty("sound"));//false
 
 //using prototype property of built in javascript object and adding new funtion to it
 Array.prototype.inArray = function (value) {
@@ -114,13 +115,13 @@ Array.prototype.inArray = function (value) {
 }
 
 var tempArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-document.write("4 in array?" + tempArray.inArray(4) + "<br/>");
+console.log("4 in array ? " + tempArray.inArray(4));
 
 /*
 Private Properties
 -------------------
-By default ,all properties in an object are public and
-we can delete them , however we can make them private 
+By default ,all properties in an object are public ,
+ however we can make them private 
 by declaring them as variable inside the constructor
 */
 
@@ -139,8 +140,8 @@ function SecretCode() {
 }
 
 var seceret = new SecretCode();
-document.write("value of secretNum : " + seceret.guessNumber(78) + "<br/>");
-document.write(seceret.secretNum+"<br/>");//undifined
+console.log("value of secretNum : " + seceret.guessNumber(78) + "<br/>");
+console.log(seceret.secretNum);//undifined
 
 /*
 getter/setter
@@ -164,8 +165,8 @@ var address = {
     }
 };
 address.setAddress = "123 main St, pittsburgh, PA";
-document.write("Address:" + address.getAddress+"<br/>");
-document.write("City:" + address.city + "<br/>");
+console.log("Address:" + address.getAddress+"<br/>");
+console.log("City:" + address.city + "<br/>");
 
 //another way of defining setter and getter
 function Address() {
@@ -186,8 +187,8 @@ Object.__defineSetter__.call(Address.prototype,
     });
 var addressObj = new Address();
 addressObj.setAddress = "12 street,London";
-document.write("Address:"+addressObj.getAddress + "<br/>");
-document.write(addressObj.city + "<br/>");
+console.log("Address:"+addressObj.getAddress);
+console.log(addressObj.city );
 
 //another way of defining setter and getter
 //not working in current javascript version
@@ -209,7 +210,7 @@ Object.defineProperties(Point.prototype, "pointPos", {
 
 var pointObj = new Point();
 pointObj.pointPos = "100,200";
-document.write("Positions:" + pointObj.pointPos);
+console.log("Positions:" + pointObj.pointPos);
 */
 
 //ECMA 5.1 version 
@@ -225,14 +226,14 @@ Circle.prototype={
 
 var circleObj = new Circle(10);
 circleObj.radius = 15; //set use
-document.write("A circle with radius " + circleObj.radius +
+console.log("A circle with radius " + circleObj.radius +
     " has an area of " + circleObj.area.toFixed(2) + "<br/>");
 
 /*
 Inheritance
 ------------
 To understand inheritance , we need to first understand prototype
-Suupose we have a object Dog and we want to use its Name property
+Suppose we have a object Dog and we want to use its Name property
 but that Name property does'nt exsist inside Dog Object , then it 
 is going to search in its prototype Object and if that property does'nt
 exsits there also then its going to another object which it has inherited
@@ -274,10 +275,10 @@ Canine.prototype.constructor = Canine;
 Wolf.prototype.constructor = Wolf;
 
 var objWolf = new Wolf();
-document.write(objWolf.toString() + "<br/>");
+console.log(objWolf.toString());
 
-document.write("Wolf instance of Animal :"+(objWolf  instanceof Animal)+ "<br/>");
-document.write("objWolf is intance of Wolf :"+(objWolf instanceof Wolf)+ "<br/>");
+console.log("Wolf instance of Animal :"+(objWolf  instanceof Animal));
+console.log("objWolf is intance of Wolf :"+(objWolf instanceof Wolf));
 
 Animal.prototype.sound = "Grrrrr";
 Animal.prototype.getSound = function () {
@@ -285,7 +286,7 @@ Animal.prototype.getSound = function () {
 }
 
 Wolf.prototype.sound = "Woooooooo";
-document.write(objWolf.getSound() + "<br/>");
+console.log(objWolf.getSound());
 
 //better way to above code =>code improvement
 function extend(Child, Parent) {
@@ -304,7 +305,7 @@ function Deer() {
 extend(Deer, Animal);
 var objDeer = new Deer();
 
-document.write(objDeer.getSound() + "<br/>");
+console.log(objDeer.getSound() + "<br/>");
 
 //calling parent method or base class method from drive class
 function Vechile() {
@@ -334,8 +335,8 @@ Truck.prototype.drive = function () {
     return driveMsg += " through a feild";
 }
 var objTruck = new Truck("Jeep");
-document.write(objTruck.drive() + "<br/>");
-document.write(objTruck.stop() + "<br/>");
+console.log(objTruck.drive() + "<br/>");
+console.log(objTruck.stop() + "<br/>");
 
 /*
 ES6
@@ -347,7 +348,7 @@ var addStuff = {
     }
 };
 
-document.write("1+2="+addStuff.sum(1,2)+ "<br/>");
+console.log("1+2="+addStuff.sum(1,2));
 
 //Es6 way
 var addStuff1 = {
@@ -356,7 +357,7 @@ var addStuff1 = {
     }
 };
 
-document.write("1+2=" + addStuff1.sum(1, 2) + "<br/>");
+console.log("1+2=" + addStuff1.sum(1, 2));
 
 //Defining Classes
 class Ponter {
@@ -368,11 +369,15 @@ class Ponter {
     getPosition() {
         return "X: " + this.xPos + " Y:" + this.yPos;
     }
+    getOtherData(){
+        return "Some other data";
+    }
 }
 
 var point = new Ponter(10,20);
 
-document.write(point.getPosition() + "<br/>");
+console.log(point.getPosition());
+console.log(point.getOtherData());
 
 //Inheritance in ES6
 
@@ -397,18 +402,18 @@ class Dog extends Animal1 {
     }
 
     toString() {
-        return super.toString() + "<br/>Dog is named " + this.name;
+        return super.toString() + " Dog is named " + this.name;
 
     }
 }
 
 var rover = new Dog("Rover", "jess");
 
-document.write(rover.toString() + "<br/>");
+console.log(rover.toString());
 
 var bowser = Animal1.getAnimal();
 
-document.write("bowser info:" + bowser.toString() + "<br/>");
+console.log("bowser info:" + bowser.toString() + "<br/>");
 
 /*
 Design Patterns in Javascript
@@ -431,8 +436,8 @@ function Hero(name) {
 var hero1 = new Hero("Ruchir");
 var hero2 = new Hero("Amit");
 
-document.write("hero1 is=" + hero1.name + "<br/>");
-document.write("hero2 is=" + hero2.name + "<br/>");
+console.log("hero1 is=" + hero1.name);
+console.log("hero2 is=" + hero2.name);
 
 /*Factory Pattern
 Factory pattern is used to create different object on request
@@ -484,10 +489,10 @@ var longbow = objWeaponFact.makeWeapon({
     hasMagic:false
 });
 
-document.write(bladeFist.weaponType +" of type "+
+console.log(bladeFist.weaponType +" of type "+
     bladeFist.style + " crafted from " + bladeFist.metal + "<br/>");
 
-document.write(longbow.weaponType + " of type " +
+console.log(longbow.weaponType + " of type " +
     longbow.style + " crafted from " + longbow.material + "<br/>");
 
 
@@ -517,7 +522,7 @@ var objPizza = new Pizza(12);
 
 ExtraCheese(objPizza);
 ExtraMeat(objPizza);
-document.write("Cost of Pizza: $" + objPizza.price + "<br/>");
+console.log("Cost of Pizza: $" + objPizza.price + "<br/>");
 
 //Observer Pattern
 
@@ -550,16 +555,17 @@ Observable.prototype = {
 var HCL={
     name:"HCL",
     receiveData:function(data){
-        document.write(this.name+" received your info "+data+"<br/>");
+        console.log(this.name+" received your info "+data+"<br/>");
     }
 }
 
-observable=new Observable();
+var observable=new Observable();
 
 observable.subscribe(HCL);
 
 observable.publish("IBM at $134.55");
 
-document.write(observable.unSubscribe(HCL) + " Unsubscribed" + "<br/>");
+console.log(observable.unSubscribe(HCL) + " Unsubscribed" + "<br/>");
 
 observable.publish("IBM at $139.55");
+})();
