@@ -9,16 +9,20 @@
 
     var customer = {
         name: "Tom Smith Jr",
-        speak: function () {
+        speak:speak
+        /*  function () {
             return "My name is " + this.name + " and I speaks English";
-        },
+        } */
+        ,
         address: {
             street: "134 A bluemoon",
             city: "pittsburg",
             state: "PA"
         }
     };
-
+    function speak () {
+        return "My name is " + this.name + " and I speaks English";
+    }
     //acsessing object properties and functions
     console.log(customer.speak());
     console.log(customer.name + " lives at " + customer.address.street);
@@ -38,9 +42,12 @@
     function Person(name, street) {
         this.name = name;
         this.street = street;
-        this.info = function () {
+        this.info = info/* function () {
             return "My name is:" + this.name + " and I live on " + this.street;
-        }
+        } */
+    }
+    function info() {
+        return "My name is:" + this.name + " and I live on " + this.street;
     }
     //class Object creation
     var bobSmith = new Person("Bob", "Pittsburg");
@@ -93,7 +100,7 @@
     }
     console.log(Mammal);
     var grover = new Mammal("Grover");
-    console.log(grover.makeSound() + "<br/>");
+    console.log(grover.makeSound());
     //to list out all the properties of Grover object
     for (var prop in grover) {
         console.log(prop + " : " + grover[prop]);
@@ -279,11 +286,11 @@
     //Wolf then its constructor going to point the Main Object Object
     //and we need to correct it by re-assigning its construtor back to its
     //orignal object
-    Canine.prototype.constructor = Canine;
-    Wolf.prototype.constructor = Wolf;
+   // Canine.prototype.constructor = Canine;
+   // Wolf.prototype.constructor = Wolf;
 
     var objWolf = new Wolf();
-    console.log(objWolf.toString());
+    console.log(objWolf.name);
 
     console.log("Wolf instance of Animal :" + (objWolf instanceof Animal));
     console.log("objWolf is intance of Wolf :" + (objWolf instanceof Wolf));
@@ -553,7 +560,7 @@
         },
 
         publish: function (data) {
-            for (i = 0; i < this.subscribers.length; i++) {
+            for (var i = 0; i < this.subscribers.length; i++) {
                 this.subscribers[i].receiveData(data);
             }
         }
@@ -575,4 +582,76 @@
     console.log(observable.unSubscribe(HCL) + " Unsubscribed" + "<br/>");
 
     observable.publish("IBM at $139.55");
+
+
+    //Call , bind ,Apply 
+var obj={num:2};
+var obj2={num:5};
+
+var addToThis=function(a,b,c){
+    return this.num +a+b+c;
+};
+
+//using call function
+console.log(addToThis.call(obj,8,3,5));
+
+//using apply , so above code can be written in a better way
+
+var arr=[8,3,5];
+console.log(addToThis.apply(obj,arr));
+
+console.log(addToThis.apply(obj2,arr));
+
+//bind => gives me a function and not the value
+
+console.log(addToThis.bind(obj));
+var bound=  addToThis.bind(obj);
+console.log(bound(1,2,3));
+
+
+//Factory Design pattern
+function electronicDocument(props){
+    this.documentName="Electronic";
+    this.docsize=props.size || 100;
+    this.canBeSaved=function(){
+        return true;
+    }
+}
+
+function nonelectronicDocument(props){
+    this.documentName="NonElectronic";
+    this.docsize=props.size || 100;
+    this.canBeSaved=function(){
+        return false;
+    };
+}
+
+function DocumentFactory(){}
+
+DocumentFactory.prototype.createDocument=function(props){
+   var docClass=null;
+   if(props.documentName=="Electronic"){
+    docClass=electronicDocument;
+   }else{
+    docClass=nonelectronicDocument;
+   }
+   return new docClass(props);
+};
+
+var objDoc=new DocumentFactory();
+
+var electronicDoc=objDoc.createDocument({
+    documentName:"Electronic",
+    docsize: 500
+});
+
+var nonelectronicDoc=objDoc.createDocument({
+    documentName:"Non Electronic",
+    docsize: 500
+});
+
+console.log(electronicDoc.documentName);
+console.log(nonelectronicDoc.documentName);
 })();
+
+
