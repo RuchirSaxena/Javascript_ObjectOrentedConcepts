@@ -9,3 +9,7 @@ Syantax Prarsers => A program that reads your code and determines what it does a
 Lexical Enviroment =>Where something(code) sits physically in the code you write.
 
 Execution Context =>A wrraper to help manage the code that is running  , so basically there are lots of Lexical Enviorments but which one is curently running is managed by the execution contexts.It can contain things beyond what you have wrritten in your code.
+
+The Scope Chain
+================
+ 
